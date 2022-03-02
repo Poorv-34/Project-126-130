@@ -5,6 +5,7 @@ rightWristX = 0;
 leftWristY = 0;
 rightWristY = 0;
 scoreLeftWrist = 0;
+scoreRightWrist = 0;
 song1_status = "";
 song2_status = "";
 
@@ -36,6 +37,7 @@ function gotPoses(results) {
         console.log("leftWristX = " + leftWristX + "leftWristY" + leftWristY);
         console.log("rightWristX = " + rightWristX + "rightWristY" + rightWristY);
         scoreLeftWrist = results[0].pose.keypoints[9].score;
+        scoreRightWrist = results[0].pose.keypoints[10].score;
     }
 }
 function draw() {
@@ -54,6 +56,23 @@ function draw() {
     if (song2_status == false) {
         songCrabRave.play();
         document.getElementById("song_name").innerHTML = " Playing - Crab Rave";
+
+    
+      }
 }
+    if (scoreRightWrist > 0.2) {
+        circle(rightWristX, rightWristY, 20);
+        songCrabRave.stop();
+
+        if (song1_status == false) {
+            songUndertale.play();
+            document.getElementById("song_name").innerHTML = "Playing - Megalovania";
 }
+    }
+}
+
+function play() {
+    song.play();
+    song.setVolume(1);
+    song.rate(1);
 }
