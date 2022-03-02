@@ -4,6 +4,9 @@ leftWristX = 0;
 rightWristX = 0;
 leftWristY = 0;
 rightWristY = 0;
+scoreLeftWrist = 0;
+song1_status = "";
+song2_status = "";
 
 
 function preload() {
@@ -32,8 +35,25 @@ function gotPoses(results) {
         rightWristY = results[0].pose.rightWrist.y;
         console.log("leftWristX = " + leftWristX + "leftWristY" + leftWristY);
         console.log("rightWristX = " + rightWristX + "rightWristY" + rightWristY);
+        scoreLeftWrist = results[0].pose.keypoints[9].score;
     }
-    
+}
 function draw() {
     image(video, 0, 0, 600, 500);
+    fill("FF0000");
+    stroke("00FF00");
+
+ song1_status = songUndertale.isPlaying();
+ song2_status = songCrabRave.isPlaying();
+ 
+
+ if (scoreLeftWrist > 0.2) {
+    circle(leftWristX, leftWristY, 20);
+    songUndertale.stop();
+
+    if (song2_status == false) {
+        songCrabRave.play();
+        document.getElementById("song_name").innerHTML = " Playing - Crab Rave";
+}
+}
 }
